@@ -5,42 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ohakon <ohakon@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/02 19:18:04 by ohakon            #+#    #+#              #
-#    Updated: 2022/03/02 19:18:06 by ohakon           ###   ########.fr        #
+#    Created: 2022/03/02 22:30:17 by ohakon            #+#    #+#              #
+#    Updated: 2022/03/02 22:30:21 by ohakon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror
-
-LIBFT_DIR	=	../libft
+LIBFT_DIR	=	libft
 LIBFT_LIB	=	libft.a
 
-HEADER		=	pipex.h
-SRC			=	pipex.c \
-				pipex_parsing.c
-
-OBJ_DIR	=	obj
-OBJ 		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+MAND_DIR	=	mandatory
 
 RM_DIR		=	rm -rf
 RM_FILE		=	rm -f
-
-INCLUDES	= 	-I .
-
-${NAME}:	${OBJ}
-			@$(CC) -o $(NAME) $(OBJ) $(FLAGS) ${LIBFT_DIR}/${LIBFT_LIB}
-			@echo "\tCompiling...\t" [ $(NAME) ] $(SUCCESS)
-
-$(OBJ)		:	| $(OBJ_DIR)
-
-$(OBJ_DIR):
-			@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o :	%.c $(HEADER) Makefile
-					@${CC} $(FLAGS) $(INCLUDES) -o $@ -c $<
 
 #COLORS
 C_NO="\033[00m"
@@ -51,17 +29,21 @@ C_GOOD="\033[32m"
 SUCCESS		=	$(C_GOOD)SUCCESS$(C_NO)
 OK			=	$(C_OK)OK$(C_NO)
 
-all:	$(NAME)
+all:
+		@make -C ${LIBFT_DIR}/ all
+		@make -C ${MAND_DIR}/ all
+		@cp ${MAND_DIR}/${NAME} ${NAME}
 
 clean:
-		@${RM_DIR} ${OBJ_DIR}
-		@echo "\tCleaning...\t" [ $(NAME) ] $(OK)
+		@make -C ${LIBFT_DIR}/ clean
+		@make -C ${MAND_DIR}/ clean
 
-fclean:	clean
+fclean:
+		@make -C ${LIBFT_DIR}/ fclean
+		@make -C ${MAND_DIR}/ fclean
 		@${RM_FILE} $(NAME)
-		@echo "\tDeleting...\t" [ $(NAME) ] $(OK)
 
 re:		fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
 
