@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakon <ohakon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: ohakon <ohakon@student.21-school.ru >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:57:55 by ohakon            #+#    #+#             */
-/*   Updated: 2022/03/02 18:57:57 by ohakon           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:24:13 by ohakon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ps_error(char *str)
 {
-	write(2, str, 50);
+	write(2, str, strlen(str));
 	ft_putstr_fd("\n", 2);
 	exit (1);
 }
